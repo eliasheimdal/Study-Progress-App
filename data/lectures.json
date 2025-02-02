@@ -1,0 +1,48 @@
+[
+    {
+      "id": 1,
+      "courseCode": "TDT4240",
+      "day": "mandag",
+      "time": "12:15-14:00",
+      "type": "Forelesning",
+      "durationHours": 2,
+      "checked": false
+    },
+    {
+      "id": 2,
+      "courseCode": "TDT4240",
+      "day": "tirsdag",
+      "time": "08:15-10:00",
+      "type": "Øving",
+      "durationHours": 2,
+      "checked": false
+    },
+    {
+      "id": 3,
+      "courseCode": "TDT4240",
+      "day": "torsdag",
+      "time": "12:15-14:00",
+      "type": "Forelesning",
+      "durationHours": 2,
+      "checked": false
+    },
+    {
+      "id": 4,
+      "courseCode": "TDT4242",
+      "day": "tirsdag",
+      "time": "12:15-14:00",
+      "type": "Forelesning",
+      "durationHours": 2,
+      "checked": false
+    },
+    {
+      "id": 5,
+      "courseCode": "TDT4242",
+      "day": "fredag",
+      "time": "08:15-10:00",
+      "type": "Øving",
+      "durationHours": 2,
+      "checked": false
+    }
+  ]
+  

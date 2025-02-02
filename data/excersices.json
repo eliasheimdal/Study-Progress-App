@@ -1,0 +1,80 @@
+[
+    {
+        "course": "TDT4240",
+        "content" : [
+            {
+                "id": 1,
+                "name": "Excercise 1: Technology Introduction",
+                "Deadline": "2025-01-27",
+                "link": "/excersice_desc/Exercise_1-Technology_Introduction.pdf",
+                "done": false
+            },
+            {
+                "id": 2,
+                "name": "Excercise 2: Patterns",
+                "Deadline": "2025-02-03",
+                "link": "/excersice_desc/Exercise_2-TDT4240_Patterns.pdf",
+                "done": false
+            },
+            {
+                "id": 3,
+                "name": "Excercise 3",
+                "Deadline": "2025-02-10",
+                "link": "",
+                "done": false
+            }
+        ]
+    },
+    {
+        "course": "IT3010",
+        "content" : [
+            {
+                "id": 4,
+                "name": "Excercise 1",
+                "Deadline": "2025-01-27",
+                "link": "",
+                "done": false
+            },
+            {
+                "id": 5,
+                "name": "Excercise 2",
+                "Deadline": "2025-02-03",
+                "link": "",
+                "done": false
+            },
+            {
+                "id": 6,
+                "name": "Excercise 3",
+                "Deadline": "2025-02-10",
+                "link": "",
+                "done": false
+            }
+        ]
+    },
+    {
+        "course": "TDT4242",
+        "content" : [
+            {
+                "id": 7,
+                "name": "Excercise 1",
+                "Deadline": "2025-01-27",
+                "link": "",
+                "done": false
+            },
+            {
+                "id": 8,
+                "name": "Excercise 2",
+                "Deadline": "2025-02-03",
+                "link": "",
+                "done": false
+            },
+            {
+                "id": 9,
+                "name": "Excercise 3",
+                "Deadline": "2025-02-10",
+                "link": "",
+                "done": false
+            }
+        ]
+    }
+]

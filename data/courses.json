@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "courseCode": "TDT4242",
+    "name": "Avansert programvareutvikling",
+    "description": "React is a JavaScript library for building user interfaces.",
+    "src": "https://heroui.com/images/card-example-2.jpeg"
+  },
+  {
+    "id": 2,
+    "courseCode": "TDT4240",
+    "name": "Programvarearkitektur",
+    "description": "I emnet lærer studentene å definere og forklare sentrale konsepter innen programvarearkitektur, og å kunne bruke og beskrive design- og arkitekturmønster, metoder for å designe programvarearkitekturer, metoder og teknikker for å oppnå ulike programvarekvaliteter, metoder for å dokumentere programvarearkitekturer, og metoder for å evaluere programvarearkitekturer. Emnet gir kunnskap om ulike design- og arkitekturmønster for ulike domener, og om programvarearkitektur og dataspill. Emnet gir også praktisk innføring i bruk av metoder og teknikker relatert til programvarearkitektur gjennom et prosjekt som følger en hel utviklingsprosess, samt implementering av en programvarearkitektur.",
+    "src": "https://heroui.com/images/card-example-6.jpeg"
+  },
+  {
+    "id": 3,
+    "courseCode": "IT3010",
+    "name": "Metoder for empirisk forskning innen IT og digitalisering",
+    "description": "Vue.js is a progressive JavaScript framework for building user interfaces.",
+    "src": "https://images.pexels.com/photos/941555/pexels-photo-941555.jpeg?auto=compress&cs=tinysrgb&w=800"
+  }
+]
