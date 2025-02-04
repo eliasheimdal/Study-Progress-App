@@ -28,12 +28,12 @@ model Exercise {
 }
 
 model Lecture {
-  id            Int      @id
+  id            Int     @id
   day           String
   time          String
   type          String
   durationHours Int
   checked       Boolean
   courseCode    String
-  course        Course   @relation(fields: [courseCode], references: [courseCode])
+  course        Course  @relation(fields: [courseCode], references: [courseCode])
 }

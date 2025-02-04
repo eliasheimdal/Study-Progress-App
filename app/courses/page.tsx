@@ -1,18 +1,14 @@
-"use client";
 
 import { title } from "@/components/primitives";
 import CoursesCard from "@/components/coursesCard";
-import { motion } from "framer-motion";
+import { getCourses } from "@/app/data/getCourses";
 
 
-export default function CoursesPage() {
+export const CoursesPage = async () => {
+  const courses = await getCourses();
+
   return (
-    <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 1.3 }}
-    >
+<div>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <div className="inline-block max-w-lg text-center justify-center">
           <h1 className={title()}>Courses</h1>
@@ -20,8 +16,10 @@ export default function CoursesPage() {
         </div>
       </section>
       <div className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <CoursesCard />
+      <CoursesCard courses={courses}/>
       </div>
-    </motion.div>
+      </div>
   );
 }
+
+export default CoursesPage;
