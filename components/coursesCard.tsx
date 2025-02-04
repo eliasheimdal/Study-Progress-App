@@ -45,7 +45,7 @@ export const CoursesCard = ({ courses }: CoursesCardProps) => {
                 radius="full"
                 size="sm"
               >
-                <NextLink href={`/courses/${course.id}`}>See More</NextLink>
+                <NextLink href={`/courses/${course.courseCode}`}>See More</NextLink>
               </Button>
             </CardFooter>
           </Card>
