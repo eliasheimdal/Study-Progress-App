@@ -6,6 +6,7 @@ import { title, subtitle } from "@/components/primitives";
 import courses from "@/data/courses.json";
 import CourseExercises from "@/components/courseExercises";
 
+
 const CoursePage = async ({
     params: { courseCode },
   }: {

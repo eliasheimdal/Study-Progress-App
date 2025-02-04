@@ -18,8 +18,8 @@ export const siteConfig = {
       href: "/lecture-plan",
     },
     {
-      label: "Excersices",
-      href: "/excersices",
+      label: "Exercises",
+      href: "/exercises",
     },
     {
       label: "About",

@@ -12,8 +12,10 @@ import {
   import { useState, useEffect } from "react";
   import { motion } from "framer-motion";
   import { Exercise } from "@prisma/client";
+  import { useSession } from "next-auth/react";
   
   export default function CourseExersices({ exercises }: { exercises: Exercise[] }) {
+    const { data: session } = useSession();
     const [completed, setCompleted] = useState<{ [key: string]: boolean }>({});
 
       useEffect(() => {
@@ -42,6 +44,7 @@ import {
         exit={{ opacity: 0 }}
         transition={{ duration: 1.3 }}
       >
+        {session ? (
         <div className="flex flex-wrap gap-2">
           {exercises.map((exercise, courseIndex) =>
             (
@@ -88,7 +91,9 @@ import {
               </Card>
             ))
           }
-        </div>
+        </div>) : (
+          <p>Sign in to see your exercises</p>
+        )}
         </motion.div>
     );
   }

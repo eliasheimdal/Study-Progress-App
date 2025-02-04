@@ -4,12 +4,14 @@ import { Card, CardHeader, CardFooter, Image, Button } from "@heroui/react";
 import NextLink from "next/link";
 import { motion } from "framer-motion";
 import { Course } from "@prisma/client";
+import { useSession } from "next-auth/react";
 
 interface CoursesCardProps {
   courses: Course[];
 }
 
 export const CoursesCard = ({ courses }: CoursesCardProps) => {  
+  const { data: session } = useSession();
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -17,6 +19,7 @@ export const CoursesCard = ({ courses }: CoursesCardProps) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 1.3 }}
     >
+      {session ? (
       <div className="max-w-[900px] gap-2 grid grid-cols-12 grid-rows-2 px-8">
         {courses.map((course) => (
           <Card key={course.id} isFooterBlurred className="col-span-12 sm:col-span-4 h-[300px]">
@@ -50,7 +53,11 @@ export const CoursesCard = ({ courses }: CoursesCardProps) => {
             </CardFooter>
           </Card>
         ))}
-      </div>
+      </div>) : (
+        <div className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+          <p>Sign in to see your courses</p>
+        </div>
+      )}
     </motion.div>
   );
 };

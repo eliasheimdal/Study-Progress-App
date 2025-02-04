@@ -4,7 +4,7 @@ import CoursesCard from "@/components/coursesCard";
 import { getCourses } from "@/app/data/getCourses";
 
 
-export const CoursesPage = async () => {
+const CoursesPage = async () => {
   const courses = await getCourses();
 
   return (
