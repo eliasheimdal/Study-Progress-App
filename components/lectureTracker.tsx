@@ -5,14 +5,14 @@ import { Checkbox, CheckboxGroup, Button } from "@heroui/react";
 import ProgressBar from "@/components/progress";
 import SliderLoad from "@/components/slider";
 import ActivityForm from "@/components/activityForm";
-import lectures from "@/data/lectures.json";
-import courses from "@/data/courses.json";
+import { Lecture, Course } from "@prisma/client";
 import { title, subtitle } from "@/components/primitives";
 import { button as buttonStyles } from "@heroui/theme";
 import { Activity } from "@/types";
 import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
 
-export default function LectureTracker() {
+export default function LectureTracker({ lectures, courses }: { lectures: Lecture[]; courses: Course[] }) {
   const { data: session } = useSession();
 
   
@@ -114,6 +114,12 @@ export default function LectureTracker() {
   };
 
   return (
+    <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 1.3 }}
+  >
     <div className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       {session ? (
         <div className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
@@ -181,5 +187,6 @@ export default function LectureTracker() {
         </div>
       )}
     </div>
+    </motion.div>
   );
 }
