@@ -7,15 +7,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id             String   @id @default(cuid())
+  name           String?
+  email          String?  @unique
+  emailVerified  DateTime?
+  image          String?
+  role           UserRole @default(USER)
+  username       String?
+  accounts       Account[]
+  sessions       Session[]
+  enrollments    Enrollment[]
+}
+
+model Enrollment {
+  id        Int     @id @default(autoincrement())
+  userId    String
+  courseId  Int
+
+  user      User    @relation(fields: [userId], references: [id])
+  course    Course  @relation(fields: [courseId], references: [id])
+  
+  @@unique([userId, courseId])
+}
+
 model Course {
-  id          Int        @id
-  courseCode  String     @unique
+  id          Int          @id
+  courseCode  String       @unique
   name        String
   description String
   src         String
   exercises   Exercise[]
   lectures    Lecture[]
+  enrollments Enrollment[]
 }
+
 
 model Exercise {
   id         Int      @id

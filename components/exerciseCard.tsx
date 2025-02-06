@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import { subtitle } from "@/components/primitives";
 import { Exercise, Course } from "@prisma/client";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 interface ExerciseCardProps {
   exercises: Exercise[];
@@ -21,6 +22,7 @@ interface ExerciseCardProps {
 
 export default function ExerciseCard({ exercises, courses }: ExerciseCardProps) {
   const [completed, setCompleted] = useState<{ [key: number]: boolean }>({});
+  const { data: session } = useSession();
 
   // Retrieve the "completed" state from localStorage on initial load.
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function ExerciseCard({ exercises, courses }: ExerciseCardProps) 
       exit={{ opacity: 0 }}
       transition={{ duration: 1.3 }}
     >
+      {session ? (
       <div>
         {courses.map((course) => {
           // For each course, filter the exercises that have a matching courseCode.
@@ -114,7 +117,11 @@ export default function ExerciseCard({ exercises, courses }: ExerciseCardProps) 
             </div>
           );
         })}
-      </div>
+      </div>) : (
+        <div className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+          <p>Sign in to see your exercises</p>
+        </div>
+      )}
     </motion.div>
   );
 }
