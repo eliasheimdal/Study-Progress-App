@@ -24,7 +24,6 @@ export default function ExerciseCard({ exercises, courses }: ExerciseCardProps) 
   const [completed, setCompleted] = useState<{ [key: number]: boolean }>({});
   const { data: session } = useSession();
 
-  // Retrieve the "completed" state from localStorage on initial load.
   useEffect(() => {
     const storedCompleted = localStorage.getItem("completedExercises");
     if (storedCompleted) {
@@ -32,7 +31,6 @@ export default function ExerciseCard({ exercises, courses }: ExerciseCardProps) 
     }
   }, []);
 
-  // Toggle the completion state for a specific exercise.
   const handlePress = (contentId: number): void => {
     setCompleted((prev) => {
       const newState = {
@@ -54,18 +52,15 @@ export default function ExerciseCard({ exercises, courses }: ExerciseCardProps) 
       {session ? (
       <div>
         {courses.map((course) => {
-          // For each course, filter the exercises that have a matching courseCode.
           const courseExercises = exercises.filter(
             (exercise) => exercise.courseCode === course.courseCode
           );
 
           return (
             <div key={course.courseCode} className="mb-8">
-              {/* Display the course header */}
               <h2 className={subtitle()}>{course.courseCode}</h2>
               
-              {/* Display exercises for this course */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-zinc-100/50 pt-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-grey pt-4">
                 {courseExercises.length > 0 ? (
                   courseExercises.map((exercise) => (
                     <div key={exercise.id} className="max-w-[400px]">
