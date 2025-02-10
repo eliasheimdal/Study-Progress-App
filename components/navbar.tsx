@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import {
@@ -9,7 +9,12 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-} from "@heroui/navbar";
+  DropdownItem,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  Avatar,
+} from "@heroui/react";
 import { Button } from "@heroui/button";
 import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
@@ -19,19 +24,16 @@ import NextLink from "next/link";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { signIn, signOut, useSession } from "next-auth/react";
-
+import { User } from "@prisma/client";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
-import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
-  SearchIcon,
-  Logo,
-} from "@/components/icons";
+import { TwitterIcon, GithubIcon, Logo } from "@/components/icons";
 
-export const Navbar = () => {
+interface NavbarProp {
+  user: User | null;
+}
+
+export const Navbar = ({ user }: NavbarProp) => {
   const [brandName, setBrandName] = useState("StudyPlanner");
   const { data: session } = useSession();
 
@@ -41,6 +43,7 @@ export const Navbar = () => {
     setBrandName("StudyPlanner");
   }, []);
 
+  console.log(session?.user.id);
   return (
     <HeroUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -82,14 +85,22 @@ export const Navbar = () => {
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem>
-          {session ? ( 
-            <Button color="danger" size="sm" onPress={async () => await signOut()}>
+          {session ? (
+            <Button
+              color="danger"
+              size="sm"
+              onPress={async () => await signOut()}
+            >
               Logout
             </Button>
           ) : (
-          <Button color="primary" size="sm" onPress={async () => await router.push("/auth/login")}>
-            Login
-          </Button>
+            <Button
+              color="primary"
+              size="sm"
+              onPress={async () => await router.push("/auth/login")}
+            >
+              Login
+            </Button>
           )}
         </NavbarItem>
       </NavbarContent>
@@ -123,6 +134,25 @@ export const Navbar = () => {
           ))}
         </div>
       </NavbarMenu>
+      <Dropdown placement="bottom-end">
+        <DropdownTrigger>
+          <Avatar
+            isBordered
+            as="button"
+            className="transition-transform"
+            color="secondary"
+            name={user?.name ?? "User"}
+            size="sm"
+            src={user?.image ?? ""}
+          />
+        </DropdownTrigger>
+        <DropdownMenu aria-label="Profile Actions" variant="flat">
+          <DropdownItem key="profile" className="h-14 gap-2">
+            <p className="font-semibold">Signed in as</p>
+            <p className="font-semibold">{user?.email}</p>
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
     </HeroUINavbar>
   );
 };
