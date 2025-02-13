@@ -28,36 +28,24 @@ export const siteConfig = {
   ],
   navMenuItems: [
     {
-      label: "Profile",
-      href: "/profile",
+      label: "Home",
+      href: "/",
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "Courses",
+      href: "/courses",
     },
     {
-      label: "Projects",
-      href: "/projects",
+      label: "Lecture Plan",
+      href: "/lecture-plan",
     },
     {
-      label: "Team",
-      href: "/team",
+      label: "Exercises",
+      href: "/exercises",
     },
     {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
+      label: "About",
+      href: "/about",
     },
   ],
   courseItems: [

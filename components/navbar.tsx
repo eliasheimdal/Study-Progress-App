@@ -117,20 +117,33 @@ export const Navbar = ({ user }: NavbarProp) => {
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                }
-                href="#"
+                color="foreground"
+                href={item.href}
                 size="lg"
               >
                 {item.label}
               </Link>
             </NavbarMenuItem>
           ))}
+          <NavbarMenuItem>
+          {session ? (
+            <Button
+              color="danger"
+              size="sm"
+              onPress={async () => await signOut()}
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button
+              color="primary"
+              size="sm"
+              onPress={async () => await router.push("/auth/login")}
+            >
+              Login
+            </Button>
+          )}
+          </NavbarMenuItem>
         </div>
       </NavbarMenu>
       {session ? (
