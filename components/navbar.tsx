@@ -43,7 +43,6 @@ export const Navbar = ({ user }: NavbarProp) => {
     setBrandName("StudyPlanner");
   }, []);
 
-  console.log(session?.user.id);
   return (
     <HeroUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
