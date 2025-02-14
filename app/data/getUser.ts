@@ -3,7 +3,7 @@ import "server-only";
 import { User } from "@prisma/client";
 import { db } from "@/lib/db";
 
-export const getUser = async (email: string): Promise<User | null> => {
+export const getUserByEmail = async (email: string): Promise<User | null> => {
   if (!email) {
     throw new Error("User email is undefined. Please pass a valid email.");
   }
@@ -12,3 +12,13 @@ export const getUser = async (email: string): Promise<User | null> => {
   });
   return user;
 };
+
+export const getUserById = async (id: string): Promise<User | null> => {
+  if (!id) {
+    throw new Error("User ID is undefined. Please pass a valid ID.");
+  }
+  const user = await db.user.findUnique({
+    where: { id },
+  });
+  return user;
+}

@@ -4,7 +4,7 @@ import { Link } from "@heroui/link";
 import clsx from "clsx";
 import { db } from "@/lib/db";
 import { Providers } from "./providers";
-import { getUser } from "./data/getUser";
+import { getUserById, getUserByEmail } from "./data/getUser";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
@@ -37,7 +37,7 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
   console.log(session);
   const userEmail = session?.user.email;
-  const user = userEmail ? await getUser(userEmail) : null;
+  const user = userEmail ? await getUserByEmail(userEmail) : null;
 
   return (
     <html suppressHydrationWarning lang="en">
