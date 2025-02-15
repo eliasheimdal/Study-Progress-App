@@ -1,4 +1,5 @@
 import { SVGProps } from "react";
+import { Course } from "@prisma/client";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -8,7 +9,7 @@ export type SliderLoadProps = {
   name: string;
   value: number;
   onChange?: (value: number) => void; // Still expect a number here
-}
+};
 
 export type ProgressBarProps = {
   name: string;
@@ -16,7 +17,7 @@ export type ProgressBarProps = {
   value: number;
   effort: number;
   full: number;
-}
+};
 
 export type Lecture = {
   courseCode: string;
@@ -25,24 +26,25 @@ export type Lecture = {
   time: string;
   durationHours: number;
   checked: boolean;
-}
+};
 
 export type Activity = {
   course: string;
   duration: string;
-}
+};
 export type ActivityFormProps = {
+  courses: Course[];
   activities: Activity[];
   setActivities: React.Dispatch<React.SetStateAction<Activity[]>>;
   onActivitySubmit: (activity: Activity) => void;
   deleteCourse: (activity: Activity, index: number) => void;
 };
 export type CoursePageProps = {
-  id: number,
-  courseCode: string,
-  name: string,
-  description: string,
-  src: string,
+  id: number;
+  courseCode: string;
+  name: string;
+  description: string;
+  src: string;
 };
 
 declare module "next-auth" {

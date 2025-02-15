@@ -2,14 +2,16 @@ import React from "react";
 import { Form, Button, Select, SelectItem } from "@heroui/react";
 import { Activity, ActivityFormProps } from "@/types";
 import { title, subtitle } from "@/components/primitives";
-import courses from "@/data/courses.json";
 
-
-
-export default function ActivityForm({ activities, setActivities, onActivitySubmit, deleteCourse }: ActivityFormProps) {
+export default function ActivityForm({
+  courses,
+  activities,
+  setActivities,
+  onActivitySubmit,
+  deleteCourse,
+}: ActivityFormProps) {
   const [course, setCourse] = React.useState<Set<string>>(new Set([]));
   const [duration, setDuration] = React.useState("");
-
 
   const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.name === "duration") {
@@ -26,7 +28,10 @@ export default function ActivityForm({ activities, setActivities, onActivitySubm
       console.log("Please fill out all fields");
       return;
     }
-    const newActivity = { course: Array.from(course).join(", "), duration: duration };
+    const newActivity = {
+      course: Array.from(course).join(", "),
+      duration: duration,
+    };
     setActivities((prevActivities) => [...prevActivities, newActivity]);
     onActivitySubmit(newActivity);
   };
@@ -47,10 +52,11 @@ export default function ActivityForm({ activities, setActivities, onActivitySubm
         name="course"
         selectedKeys={course}
         placeholder="Courses"
-        onChange={handleSelectionChange}      >
-          {courses.map((course) => (
-            <SelectItem key={course.courseCode}>{course.courseCode}</SelectItem>
-          ))}
+        onChange={handleSelectionChange}
+      >
+        {courses.map((course) => (
+          <SelectItem key={course.courseCode}>{course.courseCode}</SelectItem>
+        ))}
         {/* <SelectItem key="TDT4240">TDT4240</SelectItem>
         <SelectItem key="TDT4242">TDT4242</SelectItem>
         <SelectItem key="Machine Learning">Machine Learning</SelectItem> */}
@@ -77,14 +83,24 @@ export default function ActivityForm({ activities, setActivities, onActivitySubm
         </Button>
       </div>
       <div className="w-full max-w-xs flex flex-col gap-2">
-      <h2 className={`${subtitle()} text-center`}>Extra Activities:</h2>
-      <ul>
-      {activities.map((activity, index) => (
-          <li key={index}>
-           <Button isIconOnly variant="ghost" radius="sm" color="danger" size="sm" onPress={deleteActivity(index)}>X</Button> {activity.course} - {activity.duration} Hours
-          </li>
-        ))}
-      </ul>
+        <h2 className={`${subtitle()} text-center`}>Extra Activities:</h2>
+        <ul>
+          {activities.map((activity, index) => (
+            <li key={index}>
+              <Button
+                isIconOnly
+                variant="ghost"
+                radius="sm"
+                color="danger"
+                size="sm"
+                onPress={deleteActivity(index)}
+              >
+                X
+              </Button>{" "}
+              {activity.course} - {activity.duration} Hours
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

@@ -138,30 +138,30 @@ export default function LectureTracker({
             <p>Welcome, {session.user?.name}!</p>
             <h1 className={`${title({ color: "blue" })} pb-2`}>Progress</h1>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-grey pt-4">
-            <Card className="w-full p-8 border shadow-lg">
-              <CheckboxGroup
-                label="Select Attended Lectures"
-                value={selected}
-                onValueChange={setSelected}
-              >
-                {lectures.map((lecture) => (
-                  <Checkbox
-                    key={lecture.id}
-                    value={lecture.id.toString()}
-                    onChange={(e) =>
-                      updateProgress(
-                        e.target.checked
-                          ? lecture.durationHours
-                          : -lecture.durationHours,
-                        lecture.courseCode
-                      )
-                    }
-                  >
-                    {`${lecture.courseCode} - ${lecture.type} (${lecture.day} ${lecture.time})`}
-                  </Checkbox>
-                ))}
-              </CheckboxGroup>
-            </Card>
+              <Card className="w-full p-8 border shadow-lg">
+                <CheckboxGroup
+                  label="Select Attended Lectures"
+                  value={selected}
+                  onValueChange={setSelected}
+                >
+                  {lectures.map((lecture) => (
+                    <Checkbox
+                      key={lecture.id}
+                      value={lecture.id.toString()}
+                      onChange={(e) =>
+                        updateProgress(
+                          e.target.checked
+                            ? lecture.durationHours
+                            : -lecture.durationHours,
+                          lecture.courseCode
+                        )
+                      }
+                    >
+                      {`${lecture.courseCode} - ${lecture.type} (${lecture.day} ${lecture.time})`}
+                    </Checkbox>
+                  ))}
+                </CheckboxGroup>
+              </Card>
               <Card className="w-full p-8 border shadow-lg">
                 {courses.map((course) => (
                   <ProgressBar
@@ -175,12 +175,13 @@ export default function LectureTracker({
                 ))}
               </Card>
               <Card className="w-full p-8 border shadow-lg">
-              <ActivityForm
-                activities={activities}
-                setActivities={setActivities}
-                onActivitySubmit={handleActivitySubmit}
-                deleteCourse={handleActivityDelete}
-              />
+                <ActivityForm
+                  courses={courses}
+                  activities={activities}
+                  setActivities={setActivities}
+                  onActivitySubmit={handleActivitySubmit}
+                  deleteCourse={handleActivityDelete}
+                />
               </Card>
             </div>
 

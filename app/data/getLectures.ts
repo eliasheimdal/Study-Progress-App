@@ -12,3 +12,17 @@ export const getLectures = async (): Promise<Lecture[]> => {
     return lectures;
     };
 
+    export const getLectureByCourseId = async (courseId: number): Promise<Lecture[] | null> => {
+    if (!courseId) {
+        throw new Error("Course ID is undefined. Please pass a valid ID.");
+    }
+    const lecture = await db.lecture.findMany({
+        where: { course: { id: courseId } },
+        include: {
+        course: true,
+        },
+    });
+    return lecture;
+    }   
+
+
