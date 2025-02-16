@@ -19,24 +19,32 @@ export default function LectureTracker({
   lectures: Lecture[];
   courses: Course[];
 }) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const userId = session?.user?.id;
 
-  const loadProgress = () => {
-    if (typeof window !== "undefined") {
-      return JSON.parse(localStorage.getItem("progress") || "{}");
+  const loadData = (key: string, defaultValue: any) => {
+    if (typeof window !== "undefined" && userId) {
+      return JSON.parse(
+        localStorage.getItem(`${key}_${userId}`) || JSON.stringify(defaultValue)
+      );
     }
-    return {};
+    return defaultValue;
   };
 
-  const loadActivities = () => {
-    if (typeof window !== "undefined") {
-      return JSON.parse(localStorage.getItem("activities") || "[]");
-    }
-    return [];
-  };
-
-  const [progress, setProgress] = useState(loadProgress);
+  const [progress, setProgress] = useState(() => loadData("progress", {}));
+  const [activities, setActivities] = useState(() =>
+    loadData("activities", [])
+  );
+  const [selected, setSelected] = useState(() => loadData("selected", []));
   const [workload, setWorkload] = useState(9.375);
+
+  useEffect(() => {
+    if (userId) {
+      localStorage.setItem(`selected_${userId}`, JSON.stringify(selected));
+      localStorage.setItem(`progress_${userId}`, JSON.stringify(progress));
+      localStorage.setItem(`activities_${userId}`, JSON.stringify(activities));
+    }
+  }, [selected, progress, activities, userId]);
 
   const calculateProgressPercent = (progress: { [key: string]: number }) => {
     return Object.keys(progress).reduce(
@@ -49,15 +57,8 @@ export default function LectureTracker({
   };
 
   const [progressPercent, setProgressPercent] = useState(() =>
-    calculateProgressPercent(loadProgress())
+    calculateProgressPercent(progress)
   );
-  const [activities, setActivities] = useState(loadActivities);
-  const [selected, setSelected] = useState<string[]>([]);
-
-  useEffect(() => {
-    localStorage.setItem("progress", JSON.stringify(progress));
-    localStorage.setItem("activities", JSON.stringify(activities));
-  }, [progress, activities]);
 
   const updateProgress = (time: number, courseCode: string) => {
     setProgress((prev: Record<string, number>) => {
@@ -121,8 +122,12 @@ export default function LectureTracker({
     setProgress({});
     setProgressPercent({});
     setActivities([]);
-    localStorage.removeItem("progress");
-    localStorage.removeItem("activities");
+
+    if (userId) {
+      localStorage.removeItem(`progress_${userId}`);
+      localStorage.removeItem(`activities_${userId}`);
+      localStorage.removeItem(`selected_${userId}`);
+    }
   };
 
   return (

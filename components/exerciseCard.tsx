@@ -14,6 +14,7 @@ import { subtitle } from "@/components/primitives";
 import { Exercise, Course } from "@prisma/client";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
+import { user } from "@heroui/theme";
 
 interface ExerciseCardProps {
   exercises: Exercise[];
@@ -21,23 +22,31 @@ interface ExerciseCardProps {
 }
 
 export default function ExerciseCard({ exercises, courses }: ExerciseCardProps) {
-  const [completed, setCompleted] = useState<{ [key: number]: boolean }>({});
   const { data: session } = useSession();
+  const userId = session?.user?.id;
+
+  const loadData = ( defaultValue: any) => {
+    if (typeof window !== "undefined" && userId) {
+      return JSON.parse(
+        localStorage.getItem(`completedExercises_${userId}`) || JSON.stringify(defaultValue)
+      );
+    }
+    return defaultValue;
+  };
+  const [completed, setCompleted] = useState(() => loadData({}));
 
   useEffect(() => {
-    const storedCompleted = localStorage.getItem("completedExercises");
-    if (storedCompleted) {
-      setCompleted(JSON.parse(storedCompleted));
+    if (userId) {
+      localStorage.setItem(`completedExercises_${userId}`, JSON.stringify(completed));
     }
-  }, []);
+  }, [completed, userId]);
 
   const handlePress = (contentId: number): void => {
-    setCompleted((prev) => {
-      const newState = {
-        ...prev,
-        [contentId]: !prev[contentId],
+    setCompleted((prev: Record<number, boolean>) => {
+      const newState: Record<number, boolean> = {
+      ...prev,
+      [contentId]: !prev[contentId],
       };
-      localStorage.setItem("completedExercises", JSON.stringify(newState));
       return newState;
     });
   };

@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 
 export const getUserByEmail = async (email: string): Promise<User | null> => {
   if (!email) {
-    throw new Error("User email is undefined. Please pass a valid email.");
+    return null;
   }
   const user = await db.user.findUnique({
     where: { email },
@@ -15,7 +15,7 @@ export const getUserByEmail = async (email: string): Promise<User | null> => {
 
 export const getUserById = async (id: string): Promise<User | null> => {
   if (!id) {
-    throw new Error("User ID is undefined. Please pass a valid ID.");
+    return null;
   }
   const user = await db.user.findUnique({
     where: { id },
