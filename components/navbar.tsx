@@ -16,9 +16,8 @@ import {
   Avatar,
 } from "@heroui/react";
 import { Button } from "@heroui/button";
-import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
-import { Input } from "@heroui/input";
+import { Image } from "@heroui/react";
 import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
@@ -48,7 +47,8 @@ export const Navbar = ({ user }: NavbarProp) => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
+            {/* <Logo /> */}
+            <Image alt="StudyPlanner Logo" className="h-8" src="/planner.png" />
             <p className="font-bold text-inherit">{brandName}</p>
           </NextLink>
         </NavbarBrand>
@@ -116,33 +116,29 @@ export const Navbar = ({ user }: NavbarProp) => {
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color="foreground"
-                href={item.href}
-                size="lg"
-              >
+              <Link color="foreground" href={item.href} size="lg">
                 {item.label}
               </Link>
             </NavbarMenuItem>
           ))}
           <NavbarMenuItem>
-          {session ? (
-            <Button
-              color="danger"
-              size="sm"
-              onPress={async () => await signOut()}
-            >
-              Logout
-            </Button>
-          ) : (
-            <Button
-              color="primary"
-              size="sm"
-              onPress={async () => await router.push("/auth/login")}
-            >
-              Login
-            </Button>
-          )}
+            {session ? (
+              <Button
+                color="danger"
+                size="sm"
+                onPress={async () => await signOut()}
+              >
+                Logout
+              </Button>
+            ) : (
+              <Button
+                color="primary"
+                size="sm"
+                onPress={async () => await router.push("/auth/login")}
+              >
+                Login
+              </Button>
+            )}
           </NavbarMenuItem>
         </div>
       </NavbarMenu>
@@ -160,7 +156,11 @@ export const Navbar = ({ user }: NavbarProp) => {
             />
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2" textValue="Signed in as">
+            <DropdownItem
+              key="profile"
+              className="h-14 gap-2"
+              textValue="Signed in as"
+            >
               <p className="font-semibold">Signed in as</p>
               <p className="font-semibold">{user?.email}</p>
             </DropdownItem>
