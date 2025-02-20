@@ -20,7 +20,7 @@ export const CoursesCard = ({ courses }: CoursesCardProps) => {
       transition={{ duration: 1.3 }}
     >
       {session ? (
-      <div className="max-w-[900px] gap-2 grid grid-cols-12 grid-rows-2 px-8">
+      <div className="max-w-[900px] gap-2 grid grid-cols-8 grid-rows-2 px-8">
         {courses.map((course) => (
           <Card key={course.id} isFooterBlurred className="col-span-12 sm:col-span-4 h-[300px]">
             <CardHeader className="absolute z-10 top-1 flex-col !items-start">
