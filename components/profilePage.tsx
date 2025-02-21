@@ -120,7 +120,7 @@ const ProfilePage = ({
           <h1 className={`${subtitle()} pb-2 text-center`}>
             Sign up to new classes
           </h1>
-          <ScrollShadow className="w-[300px] h-[400px]">
+          <ScrollShadow className="w-[300px] h-[300px]">
             {allCourses
               .filter(
                 (course) =>

@@ -16,26 +16,32 @@ import {
   
   export default function CourseExersices({ exercises }: { exercises: Exercise[] }) {
     const { data: session } = useSession();
-    const [completed, setCompleted] = useState<{ [key: string]: boolean }>({});
+    const userId = session?.user?.id;
+    const loadData = ( defaultValue: any) => {
+      if (typeof window !== "undefined" && userId) {
+        return JSON.parse(
+          localStorage.getItem(`completedExercises_${userId}`) || JSON.stringify(defaultValue)
+        );
+      }
+      return defaultValue;
+    };
+    const [completed, setCompleted] = useState(() => loadData({}));
 
-      useEffect(() => {
-        const storedCompleted = localStorage.getItem("completedExercises");
-        if (storedCompleted) {
-          setCompleted(JSON.parse(storedCompleted));
-        }
-      }, []);
-  
+    useEffect(() => {
+      if (userId) {
+        localStorage.setItem(`completedExercises_${userId}`, JSON.stringify(completed));
+      }
+    }, [completed, userId]);
 
-    const handlePress = (courseIndex: string, contentId: number): void => {
-        setCompleted((prev) => {
-          const newState = {
-            ...prev,
-            [contentId]: !prev[contentId],
-          };
-          localStorage.setItem("completedExercises", JSON.stringify(newState)); // Save immediately
-          return newState;
-        });
-      };
+    const handlePress = (contentId: number): void => {
+      setCompleted((prev: Record<number, boolean>) => {
+        const newState: Record<number, boolean> = {
+        ...prev,
+        [contentId]: !prev[contentId],
+        };
+        return newState;
+      });
+    };
     
     return (
         <motion.div
@@ -57,7 +63,7 @@ import {
                     ? "bg-green-500 text-black"
                     : ""
                 }`}
-                onPress={() => handlePress(String(courseIndex), exercise.id)}
+                onPress={() => handlePress(exercise.id)}
               >
                 <CardHeader className="flex gap-3">
                   <Image
