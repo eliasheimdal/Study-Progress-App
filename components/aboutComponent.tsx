@@ -1,5 +1,6 @@
 import React from "react";
 import { title } from "@/components/primitives";
+import ReactMarkdown from "react-markdown";
 
 const AboutComponent = () => {
   return (
@@ -11,9 +12,11 @@ const AboutComponent = () => {
       </div>
 
       <div className="mt-8 w-full max-w-2xl bg-gray-800/50 backdrop-blur-lg p-6 md:p-8 rounded-2xl shadow-lg border border-gray-700">
-        <p className="text-lg text-gray-300 leading-relaxed">
+        <div className="text-lg text-gray-300 leading-relaxed">
+          <ReactMarkdown>
           This page is designed to help you **track your study progress** efficiently.
-        </p>
+          </ReactMarkdown>
+        </div>
 
         <ul className="mt-4 space-y-3 text-gray-400 text-base">
           <li>📚 Add your courses and monitor your progress.</li>
@@ -22,9 +25,11 @@ const AboutComponent = () => {
           <li>🎯 Stay on top of your goals as a full-time student.</li>
         </ul>
 
-        <p className="mt-6 text-lg text-gray-300 font-semibold">
-          This app keeps you **organized, motivated, and focused** on your studies. 🚀
-        </p>
+        <div className="mt-6 text-gray-300 text-lg">
+          <ReactMarkdown>
+            This app keeps you **organized, motivated, and focused** on your studies. 🚀
+          </ReactMarkdown>
+        </div>
       </div>
     </div>
   );
