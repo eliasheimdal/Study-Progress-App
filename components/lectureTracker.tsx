@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
 import { Checkbox, CheckboxGroup, Button, Card } from "@heroui/react";
 import ProgressBar from "@/components/progress";
 import SliderLoad from "@/components/slider";
@@ -11,6 +12,8 @@ import { button as buttonStyles } from "@heroui/theme";
 import { Activity } from "@/types";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
+import { Buttons } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function LectureTracker({
   lectures,
@@ -21,6 +24,8 @@ export default function LectureTracker({
 }) {
   const { data: session, status } = useSession();
   const userId = session?.user?.id;
+  const [message, setMessage] = useState("");
+  const [res, setRes] = useState("");
 
   const loadData = (key: string, defaultValue: any) => {
     if (typeof window !== "undefined" && userId) {
@@ -117,6 +122,31 @@ export default function LectureTracker({
     );
   };
 
+  const handleAiMessage = async () => {
+    if (!message.trim()) return;
+
+    try {
+      const response = await fetch("/api/openai", {
+        // App Router API path
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API responded with status ${response.status}`);
+      }
+
+      const data = await response.json();
+      setRes(data.response || "No response received.");
+    } catch (error) {
+      console.error("Error calling AI API:", error);
+      setRes("Failed to fetch AI response.");
+    }
+
+    setMessage("");
+  };
+
   const handleReset = () => {
     setSelected([]);
     setProgress({});
@@ -141,6 +171,18 @@ export default function LectureTracker({
         {session ? (
           <div className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
             <p>Welcome, {session.user?.name}!</p>
+            <p>Talk to your AI Assistent about your progress</p>
+            <div className="grid w-1/3 gap-2">
+              <Textarea
+                value={message}
+                onChange={(e) =>
+                  setMessage((e.target as HTMLTextAreaElement).value)
+                }
+                placeholder="Type your message here."
+              />
+              <Buttons onClick={handleAiMessage}>Send message</Buttons>
+            </div>
+            {res && <ReactMarkdown>{res}</ReactMarkdown>}
             <h1 className={`${title({ color: "blue" })} pb-2`}>Progress</h1>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-grey pt-4">
               <Card className="w-full p-8 border shadow-lg">
